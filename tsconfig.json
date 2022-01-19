@@ -1,18 +1,30 @@
 {
 	"compilerOptions": {
-		/* Set the JavaScript language version for emitted JavaScript and include compatible library declarations. */
 		"target": "es2016",
-		/* Specify what JSX code is generated. */
 		"jsx": "preserve",
-		/* Specify what module code is generated. */
 		"module": "commonjs",
-		/* Emit additional JavaScript to ease support for importing CommonJS modules. This enables `allowSyntheticDefaultImports` for type compatibility. */
 		"esModuleInterop": true,
-		/* Ensure that casing is correct in imports. */
 		"forceConsistentCasingInFileNames": true,
-		/* Enable all strict type-checking options. */
 		"strict": true,
-		/* Skip type checking all .d.ts files. */
-		"skipLibCheck": true
-	}
+		"skipLibCheck": true,
+		"lib": [
+			"dom",
+			"dom.iterable",
+			"esnext"
+		],
+		"allowJs": true,
+		"noEmit": true,
+		"incremental": true,
+		"moduleResolution": "node",
+		"resolveJsonModule": true,
+		"isolatedModules": true
+	},
+	"include": [
+		"next-env.d.ts",
+		"**/*.ts",
+		"**/*.tsx"
+	],
+	"exclude": [
+		"node_modules"
+	]
 }
