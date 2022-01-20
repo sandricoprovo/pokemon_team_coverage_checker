@@ -1,20 +1,20 @@
 import React, { useState } from 'react';
 
+import { Pokemon } from '../src/types';
 import SearchField from '../src/components/SearchField';
 
 function HomePage(): JSX.Element {
-	const [fieldInputs, setFieldInputs] = useState<string[]>([]);
+	const [teamMembers, setTeamMembers] = useState([]);
 	// TODOS:
-	// - Add state to track team members
 	// - Add a method that updates team members & pass to Search Field
-	// - Team member should know it's form field
-	// - On removal
+
+	const handleNewTeamMember = (pokemon: Pokemon) => console.log({ pokemon });
 
 	return (
 		<main style={{ border: '2px solid blue' }}>
 			<h1>Hello World</h1>
 			<div>
-				<SearchField addTeamMember={() => console.log('Adding...')} />
+				<SearchField addTeamMember={handleNewTeamMember} />
 			</div>
 		</main>
 	);

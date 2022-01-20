@@ -5,7 +5,7 @@ import { Pokemon } from '../types';
 import ResultsRow from './ResultRow';
 
 interface SearchFieldProps {
-	addTeamMember: () => void;
+	addTeamMember: (payload: Pokemon) => void;
 }
 
 function SearchField({ addTeamMember }: SearchFieldProps) {
@@ -22,9 +22,13 @@ function SearchField({ addTeamMember }: SearchFieldProps) {
 		setSearchText(value);
 	};
 
-	const handleAddTeamMember = () => addTeamMember();
-
 	const clearSearchField = () => setSearchText('');
+
+	useEffect(() => {
+		if (!searchText) return;
+
+		setResults([0, 0, 0]);
+	}, [searchText]);
 
 	return (
 		<div>
@@ -49,7 +53,7 @@ function SearchField({ addTeamMember }: SearchFieldProps) {
 							<ResultsRow
 								key={`${Math.random()}-${index}`}
 								payload={{ name: 'Pokemon' }}
-								addTeamMember={handleAddTeamMember}
+								addTeamMember={addTeamMember}
 							/>
 						);
 					})}
