@@ -7,10 +7,12 @@ import Layout from '../src/components/Layout';
 
 function App({ Component, pageProps }: AppProps) {
 	return (
-		<Layout>
+		<>
 			<GlobalStyles />
-			<Component {...pageProps} />
-		</Layout>
+			<Layout>
+				<Component {...pageProps} />
+			</Layout>
+		</>
 	);
 }
 
