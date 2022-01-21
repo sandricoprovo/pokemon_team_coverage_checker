@@ -11,7 +11,7 @@ function HomePage(): JSX.Element {
 	const handleNewTeamMember = (pokemon: Pokemon) => console.log({ pokemon });
 
 	return (
-		<main style={{ border: '2px solid blue' }}>
+		<main style={{ border: '2px solid blue', height: '100%' }}>
 			<h1>Hello World</h1>
 			<div>
 				<SearchField addTeamMember={handleNewTeamMember} />
