@@ -13,6 +13,6 @@ export interface PokeApiPayload {
 export interface Pokemon {
 	name: string;
 	id: number;
-	type: string[];
+	types: PokeApiType[];
 	sprite: string;
 }

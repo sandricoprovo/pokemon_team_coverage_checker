@@ -5,7 +5,7 @@ import { useDebounce } from '../hooks';
 
 import ResultsRow from './ResultRow';
 
-const MOCK_POKEMON = { name: 'Mew', id: 151, sprite: 'image', type: ['psychic'] };
+const MOCK_POKEMON = { name: 'Mew', id: 151, sprite: 'image', types: ['psychic'] };
 
 interface SearchFieldProps {
 	addTeamMember: (payload: Pokemon) => void;
@@ -16,12 +16,9 @@ interface HttpResponse<T> extends Response {
 }
 
 function SearchField({ addTeamMember }: SearchFieldProps) {
-	// TODOS:
-	// - Add state to track current field selection
 	const [searchText, setSearchText] = useState('');
 	const debouncedSearchTerm: string = useDebounce(searchText, 1000);
 	const [results, setResults] = useState<Pokemon[]>([]);
-	// - Format data before sending to parent
 
 	function handleSearchChange(event: ChangeEvent<HTMLInputElement>) {
 		const { value } = event.target;
@@ -42,9 +39,13 @@ function SearchField({ addTeamMember }: SearchFieldProps) {
 	}
 
 	function formatPayload(payload: PokeApiPayload): Pokemon {
-		console.log({ payload });
-
-		return MOCK_POKEMON;
+		const { id, name, sprites, types } = payload;
+		return {
+			name: name ?? '',
+			id: id ?? 1,
+			sprite: sprites.front_default ?? '',
+			types: types.map((type) => type) ?? [],
+		};
 	}
 
 	useEffect(() => {
