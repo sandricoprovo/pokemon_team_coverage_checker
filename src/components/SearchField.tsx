@@ -9,6 +9,10 @@ interface SearchFieldProps {
 	addTeamMember: (payload: Pokemon) => void;
 }
 
+interface PokeApiPayload {
+	name: string;
+}
+
 interface HttpResponse<T> extends Response {
 	data?: T;
 }
@@ -31,20 +35,17 @@ function SearchField({ addTeamMember }: SearchFieldProps) {
 		setSearchText('');
 	}
 
-	async function fetchSearchResults<T>(searchString: string): Promise<HttpResponse<T> | null> {
-		try {
-			const response: HttpResponse<T> = await fetch(
-				`https://pokeapi.co/api/v2/pokemon/${searchString}`
-			);
-			response.data = (await response.json()) as T;
-			return response;
-		} catch (error) {
-			console.log({ error });
-			return null;
-		}
+	async function fetchSearchResults<T>(searchString: string): Promise<HttpResponse<T>> {
+		const response: HttpResponse<T> = await fetch(
+			`https://pokeapi.co/api/v2/pokemon/${searchString}`
+		);
+		response.data = (await response.json()) as T;
+		return response;
 	}
 
-	function formatPayload(payload: unknown): Pokemon {
+	function formatPayload(payload: PokeApiPayload): Pokemon {
+		console.log({ payload: payload.name });
+
 		return { name: '' };
 	}
 
@@ -52,9 +53,11 @@ function SearchField({ addTeamMember }: SearchFieldProps) {
 		if (!searchText) return;
 
 		(async function () {
-			const payload = await fetchSearchResults(debouncedSearchTerm);
-			const formattedPayload = formatPayload(payload);
-			console.log(formattedPayload);
+			const payload = await fetchSearchResults<PokeApiPayload>(debouncedSearchTerm);
+			if (!payload) return;
+
+			const formattedPayload = formatPayload(payload.data as PokeApiPayload);
+			// console.log(formattedPayload);
 
 			// TODO: Format data
 			setResults([0, 0, 0]);
