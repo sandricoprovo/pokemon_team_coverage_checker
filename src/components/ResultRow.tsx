@@ -3,16 +3,16 @@ import React from 'react';
 import { Pokemon } from '../types';
 
 interface ResultRowProps {
-	payload: Pokemon;
+	pokemon: Pokemon;
 	addTeamMember: (payload: Pokemon) => void;
 }
 
-function ResultRow({ payload, addTeamMember }: ResultRowProps) {
+function ResultRow({ pokemon, addTeamMember }: ResultRowProps) {
 	// TODO: Destructure payload
 
 	return (
-		<button type="button" onClick={() => addTeamMember(payload)}>
-			{payload.name ?? 'Pokemon'}
+		<button type="button" onClick={() => addTeamMember(pokemon)}>
+			{pokemon.name ?? 'Pokemon'}
 		</button>
 	);
 }

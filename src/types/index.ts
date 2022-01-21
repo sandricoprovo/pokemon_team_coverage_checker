@@ -1,3 +1,3 @@
-import Pokemon from './Pokemon';
+import { Pokemon, PokeApiPayload } from './Pokemon';
 
-export type { Pokemon };
+export type { Pokemon, PokeApiPayload };

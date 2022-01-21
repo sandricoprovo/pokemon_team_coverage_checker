@@ -1,16 +1,14 @@
 import React, { useState, useEffect, ChangeEvent } from 'react';
 
-import { Pokemon } from '../types';
+import { Pokemon, PokeApiPayload } from '../types';
 import { useDebounce } from '../hooks';
 
 import ResultsRow from './ResultRow';
 
+const MOCK_POKEMON = { name: 'Mew', id: 151, sprite: 'image', type: ['psychic'] };
+
 interface SearchFieldProps {
 	addTeamMember: (payload: Pokemon) => void;
-}
-
-interface PokeApiPayload {
-	name: string;
 }
 
 interface HttpResponse<T> extends Response {
@@ -21,8 +19,8 @@ function SearchField({ addTeamMember }: SearchFieldProps) {
 	// TODOS:
 	// - Add state to track current field selection
 	const [searchText, setSearchText] = useState('');
-	const debouncedSearchTerm: string = useDebounce(searchText, 2000);
-	const [results, setResults] = useState<any[] | []>([]);
+	const debouncedSearchTerm: string = useDebounce(searchText, 1000);
+	const [results, setResults] = useState<Pokemon[]>([]);
 	// - Format data before sending to parent
 
 	function handleSearchChange(event: ChangeEvent<HTMLInputElement>) {
@@ -44,9 +42,9 @@ function SearchField({ addTeamMember }: SearchFieldProps) {
 	}
 
 	function formatPayload(payload: PokeApiPayload): Pokemon {
-		console.log({ payload: payload.name });
+		console.log({ payload });
 
-		return { name: '' };
+		return MOCK_POKEMON;
 	}
 
 	useEffect(() => {
@@ -56,11 +54,9 @@ function SearchField({ addTeamMember }: SearchFieldProps) {
 			const payload = await fetchSearchResults<PokeApiPayload>(debouncedSearchTerm);
 			if (!payload) return;
 
+			// Sets formatted payload to state
 			const formattedPayload = formatPayload(payload.data as PokeApiPayload);
-			// console.log(formattedPayload);
-
-			// TODO: Format data
-			setResults([0, 0, 0]);
+			setResults([formattedPayload]);
 		})();
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [debouncedSearchTerm]);
@@ -89,7 +85,7 @@ function SearchField({ addTeamMember }: SearchFieldProps) {
 				<button type="button" onClick={clearSearchField}>
 					Clear
 				</button>
-				{searchText.length > 0 ? (
+				{debouncedSearchTerm.length > 0 ? (
 					<div
 						style={{
 							display: 'flex',
@@ -100,18 +96,13 @@ function SearchField({ addTeamMember }: SearchFieldProps) {
 							// left: '45%',
 						}}
 					>
-						{results.map((result, index) => {
-							// TODO: Add method to format pokemon api data
-							console.log(result);
-
-							return (
-								<ResultsRow
-									key={`${Math.random()}-${index}`}
-									payload={{ name: 'Pokemon' }}
-									addTeamMember={addTeamMember}
-								/>
-							);
-						})}
+						{results.map((result, index) => (
+							<ResultsRow
+								key={`${Math.random()}-${index}`}
+								pokemon={result}
+								addTeamMember={addTeamMember}
+							/>
+						))}
 					</div>
 				) : null}
 			</label>
