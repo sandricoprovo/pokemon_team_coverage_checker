@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 
 import { Pokemon } from '../src/types';
-import SearchField from '../src/components/SearchField';
+import SearchField from '../src/components/SearchInput/SearchField';
 
 function HomePage(): JSX.Element {
 	const [teamMembers, setTeamMembers] = useState([]);

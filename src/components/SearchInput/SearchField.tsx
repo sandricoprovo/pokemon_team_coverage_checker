@@ -1,18 +1,19 @@
 import React, { useState, useEffect, ChangeEvent } from 'react';
 
-import { Pokemon, PokeApiPayload } from '../types';
-import { useDebounce } from '../hooks';
+import { Pokemon, PokeApiPayload, HttpResponse } from '../../types';
+import { useDebounce } from '../../hooks';
+import { ResultCard } from '../ResultCard';
 
-import ResultsRow from './ResultRow';
-
-const MOCK_POKEMON = { name: 'Mew', id: 151, sprite: 'image', types: ['psychic'] };
+import {
+	SearchContainer,
+	SearchLabel,
+	SearchInputField,
+	SearchClearBtn,
+	SearchResultContainer,
+} from './styled';
 
 interface SearchFieldProps {
 	addTeamMember: (payload: Pokemon) => void;
-}
-
-interface HttpResponse<T> extends Response {
-	data?: T;
 }
 
 function SearchField({ addTeamMember }: SearchFieldProps) {
@@ -21,9 +22,7 @@ function SearchField({ addTeamMember }: SearchFieldProps) {
 	const [results, setResults] = useState<Pokemon[]>([]);
 
 	function handleSearchChange(event: ChangeEvent<HTMLInputElement>) {
-		const { value } = event.target;
-		// TODO: DEbounce
-		setSearchText(value);
+		setSearchText(event.target.value);
 	}
 
 	function clearSearchField() {
@@ -63,51 +62,33 @@ function SearchField({ addTeamMember }: SearchFieldProps) {
 	}, [debouncedSearchTerm]);
 
 	return (
-		<div style={{ position: 'relative', border: '2px solid green' }}>
-			<label
-				htmlFor="pokemonSearch"
-				style={{
-					position: 'relative',
-					border: '2px solid green',
-					display: 'flex',
-					flexDirection: 'column',
-					padding: '20%',
-				}}
-			>
+		<SearchContainer>
+			<SearchLabel htmlFor="pokemonSearch">
 				Search Pokemon
-				<input
+				<SearchInputField
 					type="text"
 					name="pokemonSearch"
 					id="pokemonSearch"
 					placeholder="Enter Pokémon name"
 					value={searchText}
-					onChange={handleSearchChange}
+					onChange={(event) => handleSearchChange(event)}
 				/>
-				<button type="button" onClick={clearSearchField}>
+				<SearchClearBtn type="button" onClick={() => clearSearchField()}>
 					Clear
-				</button>
+				</SearchClearBtn>
 				{debouncedSearchTerm.length > 0 ? (
-					<div
-						style={{
-							display: 'flex',
-							flexDirection: 'column',
-							border: '2px solid blue',
-							position: 'absolute',
-							top: '64%',
-							// left: '45%',
-						}}
-					>
+					<SearchResultContainer>
 						{results.map((result, index) => (
-							<ResultsRow
+							<ResultCard
 								key={`${Math.random()}-${index}`}
 								pokemon={result}
 								addTeamMember={addTeamMember}
 							/>
 						))}
-					</div>
+					</SearchResultContainer>
 				) : null}
-			</label>
-		</div>
+			</SearchLabel>
+		</SearchContainer>
 	);
 }
 
