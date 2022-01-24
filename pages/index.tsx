@@ -19,6 +19,7 @@ function HomePage(): JSX.Element {
 		// TODO: Handle showing duplicate or a full roster
 		if (isPokemonDuplicate || teamMembers.length === 6) return;
 
+		// BUGS: Adding a second pokemon is currently broken.
 		updatedRoster.push(newTeamMember);
 		setTeamMembers(updatedRoster);
 	}
