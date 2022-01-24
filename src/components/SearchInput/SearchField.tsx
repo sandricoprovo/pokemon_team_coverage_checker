@@ -71,7 +71,7 @@ function SearchField({ addTeamMember }: SearchFieldProps) {
 					id="pokemonSearch"
 					placeholder="Enter Pokémon name"
 					value={searchText}
-					onChange={(event) => handleSearchChange(event)}
+					onChange={handleSearchChange}
 				/>
 				<SearchClearBtn type="button" onClick={() => clearSearchField()}>
 					Clear

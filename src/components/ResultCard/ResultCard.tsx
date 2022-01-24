@@ -10,8 +10,8 @@ interface ResultCardProps {
 }
 
 function ResultCard({ pokemon, addTeamMember }: ResultCardProps) {
-	// TODO: Destructure payload
-	const { id, name, sprite, types } = pokemon;
+	const { name } = pokemon;
+	// TODO: Add handle click that clears the result card when result is clicked
 
 	return (
 		<CardContainer
