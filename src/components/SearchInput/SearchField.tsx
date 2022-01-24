@@ -83,6 +83,7 @@ function SearchField({ addTeamMember }: SearchFieldProps) {
 								key={`${Math.random()}-${index}`}
 								pokemon={result}
 								addTeamMember={addTeamMember}
+								clearSearch={clearSearchField}
 							/>
 						))}
 					</SearchResultContainer>

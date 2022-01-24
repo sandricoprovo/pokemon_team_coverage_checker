@@ -10,12 +10,12 @@ function HomePage(): JSX.Element {
 	// - Add a method that updates team members & pass to Search Field
 
 	function handleNewTeamMember(pokemon: Pokemon) {
-		console.log('Adding new team member...');
-		const updatedRoster = [...teamMembers, pokemon];
+		console.log('Adding new team member...', { pokemon });
+		// const updatedRoster = [...teamMembers, pokemon];
 
 		// TODO: Check for duplicate entries
 
-		setTeamMembers(updatedRoster);
+		// setTeamMembers(updatedRoster);
 	}
 
 	return (

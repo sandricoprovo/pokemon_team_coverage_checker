@@ -7,19 +7,19 @@ import { CardContainer } from './styled';
 interface ResultCardProps {
 	pokemon: Pokemon;
 	addTeamMember: (payload: Pokemon) => void;
+	clearSearch: () => void;
 }
 
-function ResultCard({ pokemon, addTeamMember }: ResultCardProps) {
+function ResultCard({ pokemon, addTeamMember, clearSearch }: ResultCardProps) {
 	const { name } = pokemon;
-	// TODO: Add handle click that clears the result card when result is clicked
+
+	function removeOnClick() {
+		clearSearch();
+		addTeamMember(pokemon);
+	}
 
 	return (
-		<CardContainer
-			onClick={() => addTeamMember(pokemon)}
-			onKeyDown={() => addTeamMember(pokemon)}
-			role="button"
-			tabIndex={0}
-		>
+		<CardContainer onClick={removeOnClick} onKeyDown={removeOnClick} role="button" tabIndex={0}>
 			{name ?? 'Pokemon'}
 		</CardContainer>
 	);
