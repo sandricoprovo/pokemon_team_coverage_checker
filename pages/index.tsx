@@ -6,16 +6,20 @@ import { Roster, RosterSlot } from '../src/components/Roster';
 
 function HomePage(): JSX.Element {
 	const [teamMembers, setTeamMembers] = useState<Pokemon[]>([]);
-	// TODOS:
-	// - Add a method that updates team members & pass to Search Field
 
-	function handleNewTeamMember(pokemon: Pokemon) {
-		console.log('Adding new team member...', { pokemon });
-		// const updatedRoster = [...teamMembers, pokemon];
+	function handleNewTeamMember(newTeamMember: Pokemon) {
+		const updatedRoster = [...teamMembers];
+		// Returns true if newTeamMember is a duplicate entry
+		const isPokemonDuplicate = updatedRoster.some((teamMember) => {
+			if (teamMember.id !== newTeamMember.id) return teamMember;
+			return true;
+		});
 
-		// TODO: Check for duplicate entries
+		// TODO: Handle showing duplicate or a full roster
+		if (isPokemonDuplicate || teamMembers.length === 6) return;
 
-		// setTeamMembers(updatedRoster);
+		updatedRoster.push(newTeamMember);
+		setTeamMembers(updatedRoster);
 	}
 
 	return (
@@ -26,8 +30,11 @@ function HomePage(): JSX.Element {
 			</section>
 			<Roster>
 				{teamMembers.length > 0
-					? teamMembers.map((pokemon) => <RosterSlot pokemon={pokemon} />)
-					: 'Your roster is currently empty!'}
+					? teamMembers.map((pokemon) => {
+						const { id, name } = pokemon;
+						return <RosterSlot key={`${id}_${name}`} pokemon={pokemon} />;
+					})
+					: null}
 			</Roster>
 		</main>
 	);

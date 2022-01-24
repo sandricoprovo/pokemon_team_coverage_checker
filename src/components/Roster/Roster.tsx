@@ -3,7 +3,7 @@ import React from 'react';
 import { RosterContainer } from './styled';
 
 interface RosterProps {
-	children: JSX.Element[] | string;
+	children: JSX.Element[] | null;
 }
 
 function Roster({ children }: RosterProps) {
