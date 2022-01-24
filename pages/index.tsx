@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 
 import { Pokemon } from '../src/types';
 import SearchField from '../src/components/SearchInput/SearchField';
-import { Slots, PokemonSlot } from '../src/components/PokemonSlots';
+import { Roster, RosterSlot } from '../src/components/Roster';
 
 function HomePage(): JSX.Element {
 	const [teamMembers, setTeamMembers] = useState<Pokemon[]>([]);
@@ -24,11 +24,11 @@ function HomePage(): JSX.Element {
 			<section>
 				<SearchField addTeamMember={handleNewTeamMember} />
 			</section>
-			<Slots>
+			<Roster>
 				{teamMembers.length > 0
-					? teamMembers.map((pokemon) => <PokemonSlot pokemon={pokemon} />)
-					: 'Your team is empty!'}
-			</Slots>
+					? teamMembers.map((pokemon) => <RosterSlot pokemon={pokemon} />)
+					: 'Your roster is currently empty!'}
+			</Roster>
 		</main>
 	);
 }

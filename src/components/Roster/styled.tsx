@@ -1,9 +1,9 @@
 import styled from 'styled-components';
 
-export const SlotsContainer = styled.section`
+export const RosterContainer = styled.section`
 	border: 2px solid pink;
 `;
 
-export const PokemonSlotContainer = styled.div`
+export const RosterSlotContainer = styled.div`
 	border: 2px solid yellow;
 `;

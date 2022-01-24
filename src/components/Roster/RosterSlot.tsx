@@ -2,22 +2,22 @@ import React from 'react';
 
 import { Pokemon } from '../../types';
 
-import { PokemonSlotContainer } from './styled';
+import { RosterSlotContainer } from './styled';
 
-interface PokemonSlotProps {
+interface RosterSlotProps {
 	pokemon: Pokemon;
 }
 
-function PokemonSlot({ pokemon }: PokemonSlotProps) {
+function RosterSlot({ pokemon }: RosterSlotProps) {
 	const { name } = pokemon;
 
 	return (
-		<PokemonSlotContainer>
+		<RosterSlotContainer>
 			{/* Sprite here via next image */}
 			<h1>{name}</h1>
 			{/* Types here are an array of blocks */}
-		</PokemonSlotContainer>
+		</RosterSlotContainer>
 	);
 }
 
-export default PokemonSlot;
+export default RosterSlot;
