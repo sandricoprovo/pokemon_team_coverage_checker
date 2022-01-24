@@ -78,9 +78,9 @@ function SearchField({ addTeamMember }: SearchFieldProps) {
 				</SearchClearBtn>
 				{debouncedSearchTerm.length > 0 ? (
 					<SearchResultContainer>
-						{results.map((result, index) => (
+						{results.map((result) => (
 							<ResultCard
-								key={`${Math.random()}-${index}`}
+								key={`${result.name}-${result.id}`}
 								pokemon={result}
 								addTeamMember={addTeamMember}
 								clearSearch={clearSearchField}
