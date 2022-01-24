@@ -9,6 +9,7 @@ interface RosterSlotProps {
 }
 
 function RosterSlot({ pokemon }: RosterSlotProps) {
+	// TODO: Add an X (remove) icon in to right to remove pokemon.
 	const { name } = pokemon;
 
 	return (

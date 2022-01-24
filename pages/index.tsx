@@ -6,6 +6,7 @@ import { Roster, RosterSlot } from '../src/components/Roster';
 
 function HomePage(): JSX.Element {
 	const [teamMembers, setTeamMembers] = useState<Pokemon[]>([]);
+	// TODO: Add method that can remove a team member
 
 	function handleNewTeamMember(newTeamMember: Pokemon) {
 		const updatedRoster = [...teamMembers];
