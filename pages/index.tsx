@@ -12,14 +12,13 @@ function HomePage(): JSX.Element {
 		const updatedRoster = [...teamMembers];
 		// Returns true if newTeamMember is a duplicate entry
 		const isPokemonDuplicate = updatedRoster.some((teamMember) => {
-			if (teamMember.id !== newTeamMember.id) return teamMember;
+			if (teamMember.id !== newTeamMember.id) return false;
 			return true;
 		});
 
 		// TODO: Handle showing duplicate or a full roster
 		if (isPokemonDuplicate || teamMembers.length === 6) return;
 
-		// BUGS: Adding a second pokemon is currently broken.
 		updatedRoster.push(newTeamMember);
 		setTeamMembers(updatedRoster);
 	}
