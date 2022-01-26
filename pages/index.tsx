@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 
 import { Pokemon } from '../src/types';
-import SearchField from '../src/components/SearchInput/SearchField';
+import { SearchField } from '../src/components/SearchField';
 import { Roster, RosterSlot } from '../src/components/Roster';
 
 function HomePage(): JSX.Element {

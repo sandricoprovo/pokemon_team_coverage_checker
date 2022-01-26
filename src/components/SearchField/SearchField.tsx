@@ -76,19 +76,19 @@ function SearchField({ addTeamMember }: SearchFieldProps) {
 				<SearchClearBtn type="button" onClick={() => clearSearchField()}>
 					Clear
 				</SearchClearBtn>
-				{debouncedSearchTerm.length > 0 ? (
-					<SearchResultContainer>
-						{results.map((result) => (
-							<ResultCard
-								key={`${result.name}-${result.id}`}
-								pokemon={result}
-								addTeamMember={addTeamMember}
-								clearSearch={clearSearchField}
-							/>
-						))}
-					</SearchResultContainer>
-				) : null}
 			</SearchLabel>
+			{debouncedSearchTerm.length > 0 ? (
+				<SearchResultContainer>
+					{results.map((result) => (
+						<ResultCard
+							key={`${result.name}-${result.id}`}
+							pokemon={result}
+							addTeamMember={addTeamMember}
+							clearSearch={clearSearchField}
+						/>
+					))}
+				</SearchResultContainer>
+			) : null}
 		</SearchContainer>
 	);
 }
