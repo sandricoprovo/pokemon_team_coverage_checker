@@ -2,8 +2,9 @@ import React from 'react';
 
 import TypePill from '../TypePill';
 import { Pokemon } from '../../types';
+import { capitalizeFirstLetter } from '../../utils';
 
-import { RosterSlotContainer } from './styled';
+import { RosterSlotContainer, TypesContainer } from './styled';
 
 interface RosterSlotProps {
 	pokemon: Pokemon;
@@ -16,13 +17,13 @@ function RosterSlot({ pokemon }: RosterSlotProps) {
 	return (
 		<RosterSlotContainer>
 			{/* Sprite here via next image */}
-			<h1>{name}</h1>
+			<h1>{capitalizeFirstLetter([...name])}</h1>
 			{/* Types here are an array of blocks */}
-			<div>
-				{types.map((type) => (
-					<TypePill typeData={type} />
+			<TypesContainer>
+				{types.map((typeData) => (
+					<TypePill key={`${typeData.slot}_${typeData.type.name}`} typeData={typeData} />
 				))}
-			</div>
+			</TypesContainer>
 		</RosterSlotContainer>
 	);
 }

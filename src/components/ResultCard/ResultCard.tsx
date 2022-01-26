@@ -1,6 +1,7 @@
 import React from 'react';
 
 import { Pokemon } from '../../types';
+import { capitalizeFirstLetter } from '../../utils';
 
 import { CardContainer } from './styled';
 
@@ -20,7 +21,7 @@ function ResultCard({ pokemon, addTeamMember, clearSearch }: ResultCardProps) {
 
 	return (
 		<CardContainer onClick={removeOnClick} onKeyDown={removeOnClick} role="button" tabIndex={0}>
-			{name ?? 'Pokemon'}
+			{capitalizeFirstLetter([...name]) ?? 'Pokemon'}
 		</CardContainer>
 	);
 }

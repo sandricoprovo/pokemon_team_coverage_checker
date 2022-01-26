@@ -21,3 +21,8 @@ export const RosterSlotContainer = styled.div`
 	justify-content: space-evenly;
 	align-items: center;
 `;
+
+export const TypesContainer = styled.div`
+	display: flex;
+	gap: 1rem;
+`;
