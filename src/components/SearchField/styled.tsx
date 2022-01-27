@@ -15,6 +15,7 @@ export const SearchLabel = styled.label`
 	position: relative;
 	border: 2px solid magenta;
 	min-width: 300px;
+	width: 80%;
 	padding: 1rem;
 
 	display: flex;
@@ -32,6 +33,7 @@ export const SearchInputField = styled.input`
 export const SearchClearBtn = styled.button`
 	padding: 0.5rem 3rem;
 	border: none;
+	cursor: pointer;
 `;
 
 export const SearchResultContainer = styled.div`

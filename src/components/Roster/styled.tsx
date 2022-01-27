@@ -7,7 +7,7 @@ export const RosterContainer = styled.section`
 	flex-wrap: wrap;
 	justify-content: center;
 	align-items: center;
-	gap: 4rem;
+	gap: 3rem;
 `;
 
 export const RosterSlotContainer = styled.div`
@@ -15,7 +15,7 @@ export const RosterSlotContainer = styled.div`
 	min-width: 280px;
 	max-width: 400px;
 
-	flex: 1 1 250px;
+	flex: 1 1 350px;
 	display: flex;
 	flex-direction: column;
 	justify-content: space-evenly;
