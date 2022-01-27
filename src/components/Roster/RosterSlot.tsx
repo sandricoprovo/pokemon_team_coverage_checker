@@ -1,4 +1,5 @@
 import React from 'react';
+import Image from 'next/image';
 
 import TypePill from '../TypePill';
 import { Pokemon } from '../../types';
@@ -12,13 +13,17 @@ interface RosterSlotProps {
 
 function RosterSlot({ pokemon }: RosterSlotProps) {
 	// TODO: Add an X (remove) icon in to right to remove pokemon.
-	const { name, types } = pokemon;
+	const { name, types, sprite: spriteUrl } = pokemon;
 
 	return (
 		<RosterSlotContainer>
-			{/* Sprite here via next image */}
+			<Image
+				src={spriteUrl}
+				alt={`A small colored sprite of ${name}.`}
+				width={150}
+				height={150}
+			/>
 			<h1>{capitalizeFirstLetter([...name])}</h1>
-			{/* Types here are an array of blocks */}
 			<TypesContainer>
 				{types.map((typeData) => (
 					<TypePill key={`${typeData.slot}_${typeData.type.name}`} typeData={typeData} />
