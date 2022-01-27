@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 
 import { Pokemon } from '../../types';
 import { capitalizeFirstLetter } from '../../utils';
@@ -12,18 +12,31 @@ interface ResultCardProps {
 }
 
 function ResultCard({ pokemon, addTeamMember, clearSearch }: ResultCardProps) {
-	const { name } = pokemon;
+	const [pokemonData, setPokemonData] = useState<Pokemon>({
+		id: 0,
+		name: '',
+		sprite: '',
+		types: [],
+	});
+	const [isVisible, setIsVisible] = useState(false);
 
 	function removeOnClick() {
 		clearSearch();
+		setIsVisible(false);
 		addTeamMember(pokemon);
 	}
 
-	return (
+	useEffect(() => {
+		if (!pokemon) return;
+		setPokemonData(pokemon);
+		setIsVisible(true);
+	}, [pokemon]);
+
+	return isVisible ? (
 		<CardContainer onClick={removeOnClick} onKeyDown={removeOnClick} role="button" tabIndex={0}>
-			{capitalizeFirstLetter([...name]) ?? 'Pokemon'}
+			{capitalizeFirstLetter([...pokemonData.name]) ?? 'Pokemon'}
 		</CardContainer>
-	);
+	) : null;
 }
 
 export default ResultCard;
