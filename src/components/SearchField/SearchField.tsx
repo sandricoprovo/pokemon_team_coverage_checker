@@ -29,10 +29,20 @@ function SearchField({ addTeamMember }: SearchFieldProps) {
 		setSearchText('');
 	}
 
+	// TODO: Catch 404 errors in fetch function
 	async function fetchSearchResults<T>(searchString: string): Promise<HttpResponse<T>> {
 		const response: HttpResponse<T> = await fetch(
 			`https://pokeapi.co/api/v2/pokemon/${searchString}`
-		);
+		).catch((error) => {
+			throw error;
+		});
+		console.log(response.status);
+
+		// Handles 404 from server
+		if (response.status === 404) {
+			throw new Error('API hit 404');
+		}
+
 		response.data = (await response.json()) as T;
 		return response;
 	}
@@ -51,13 +61,19 @@ function SearchField({ addTeamMember }: SearchFieldProps) {
 		if (!searchText) return;
 
 		(async function () {
-			const payload = await fetchSearchResults<PokeApiPayload>(debouncedSearchTerm);
+			const payload = await fetchSearchResults<PokeApiPayload>(debouncedSearchTerm).catch(
+				(error) => {
+					throw error;
+				}
+			);
 			if (!payload) return;
 
 			// Sets formatted payload to state
 			const formattedPayload = formatPayload(payload.data as PokeApiPayload);
 			setResults([formattedPayload]);
-		})();
+		})().catch((error) => {
+			throw error;
+		});
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [debouncedSearchTerm]);
 
