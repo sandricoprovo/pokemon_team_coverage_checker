@@ -5,7 +5,7 @@ import TypePill from '../TypePill';
 import { Pokemon } from '../../types';
 import { capitalizeFirstLetter } from '../../utils';
 
-import { RosterSlotContainer, TypesContainer } from './styled';
+import { RosterSlotContainer, TypesContainer, RosterSlotHeader, RemoveSlotBtn } from './styled';
 
 interface RosterSlotProps {
 	pokemon: Pokemon;
@@ -18,16 +18,14 @@ function RosterSlot({ pokemon, removeFromRoster }: RosterSlotProps) {
 
 	return (
 		<RosterSlotContainer>
-			<button type="button" onClick={() => removeFromRoster(pokemon)}>
-				X
-			</button>
+			<RemoveSlotBtn onClick={() => removeFromRoster(pokemon)}>X</RemoveSlotBtn>
 			<Image
 				src={spriteUrl}
 				alt={`A small colored sprite of ${name}.`}
 				width={150}
 				height={150}
 			/>
-			<h1>{capitalizeFirstLetter([...name])}</h1>
+			<RosterSlotHeader>{capitalizeFirstLetter([...name])}</RosterSlotHeader>
 			<TypesContainer>
 				{types.map((typeData) => (
 					<TypePill key={`${typeData.slot}_${typeData.type.name}`} typeData={typeData} />

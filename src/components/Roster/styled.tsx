@@ -14,12 +14,21 @@ export const RosterSlotContainer = styled.div`
 	border: 2px solid brown;
 	min-width: 280px;
 	max-width: 400px;
+	padding: 1rem 0;
 
 	flex: 1 1 350px;
 	display: flex;
 	flex-direction: column;
-	justify-content: space-evenly;
+	justify-content: space-around;
 	align-items: center;
+`;
+
+export const RemoveSlotBtn = styled.button`
+	cursor: pointer;
+`;
+
+export const RosterSlotHeader = styled.h1`
+	margin: 0;
 `;
 
 export const TypesContainer = styled.div`
