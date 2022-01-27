@@ -5,11 +5,10 @@ import { SearchField } from '../src/components/SearchField';
 import { Roster, RosterSlot } from '../src/components/Roster';
 
 function HomePage(): JSX.Element {
-	const [teamMembers, setTeamMembers] = useState<Pokemon[]>([]);
-	// TODO: Add method that can remove a team member
+	const [roster, setRoster] = useState<Pokemon[]>([]);
 
-	function handleNewTeamMember(newTeamMember: Pokemon) {
-		const updatedRoster = [...teamMembers];
+	function handleRosterAddition(newTeamMember: Pokemon) {
+		const updatedRoster = [...roster];
 		// Returns true if newTeamMember is a duplicate entry
 		const isPokemonDuplicate = updatedRoster.some((teamMember) => {
 			if (teamMember.id !== newTeamMember.id) return false;
@@ -17,23 +16,38 @@ function HomePage(): JSX.Element {
 		});
 
 		// TODO: Handle showing duplicate or a full roster
-		if (isPokemonDuplicate || teamMembers.length === 6) return;
+		if (isPokemonDuplicate || roster.length === 6) return;
 
 		updatedRoster.push(newTeamMember);
-		setTeamMembers(updatedRoster);
+		setRoster(updatedRoster);
+	}
+
+	function handleRosterRemoval(memberToRemove: Pokemon) {
+		const updatedRoster = [...roster].filter((rosterMember) => {
+			if (rosterMember.id !== memberToRemove.id) return rosterMember;
+			return null;
+		});
+
+		setRoster(updatedRoster);
 	}
 
 	return (
 		<main style={{ border: '2px solid blue', height: '100%' }}>
 			<h1>Hello World</h1>
 			<section>
-				<SearchField addTeamMember={handleNewTeamMember} />
+				<SearchField addTeamMember={handleRosterAddition} />
 			</section>
 			<Roster>
-				{teamMembers.length > 0
-					? teamMembers.map((pokemon) => {
+				{roster.length > 0
+					? roster.map((pokemon) => {
 						const { id, name } = pokemon;
-						return <RosterSlot key={`${id}_${name}`} pokemon={pokemon} />;
+						return (
+							<RosterSlot
+								key={`${id}_${name}`}
+								pokemon={pokemon}
+								removeFromRoster={handleRosterRemoval}
+							/>
+						);
 					})
 					: null}
 			</Roster>

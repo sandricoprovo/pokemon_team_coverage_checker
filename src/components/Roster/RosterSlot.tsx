@@ -9,14 +9,18 @@ import { RosterSlotContainer, TypesContainer } from './styled';
 
 interface RosterSlotProps {
 	pokemon: Pokemon;
+	removeFromRoster: (value: Pokemon) => void;
 }
 
-function RosterSlot({ pokemon }: RosterSlotProps) {
+function RosterSlot({ pokemon, removeFromRoster }: RosterSlotProps) {
 	// TODO: Add an X (remove) icon in to right to remove pokemon.
 	const { name, types, sprite: spriteUrl } = pokemon;
 
 	return (
 		<RosterSlotContainer>
+			<button type="button" onClick={() => removeFromRoster(pokemon)}>
+				X
+			</button>
 			<Image
 				src={spriteUrl}
 				alt={`A small colored sprite of ${name}.`}
