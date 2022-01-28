@@ -20,6 +20,7 @@ function SearchField({ addTeamMember }: SearchFieldProps) {
 	const [searchText, setSearchText] = useState('');
 	const debouncedSearchTerm: string = useDebounce(searchText, 1000);
 	const [results, setResults] = useState<Pokemon[]>([]);
+	// TODO: Handle showing an empty result card when no results are present.
 
 	function handleSearchChange(event: ChangeEvent<HTMLInputElement>) {
 		setSearchText(event.target.value);
@@ -27,24 +28,7 @@ function SearchField({ addTeamMember }: SearchFieldProps) {
 
 	function clearSearchField() {
 		setSearchText('');
-	}
-
-	// TODO: Catch 404 errors in fetch function
-	async function fetchSearchResults<T>(searchString: string): Promise<HttpResponse<T>> {
-		const response: HttpResponse<T> = await fetch(
-			`https://pokeapi.co/api/v2/pokemon/${searchString}`
-		).catch((error) => {
-			throw error;
-		});
-		console.log(response.status);
-
-		// Handles 404 from server
-		if (response.status === 404) {
-			throw new Error('API hit 404');
-		}
-
-		response.data = (await response.json()) as T;
-		return response;
+		setResults([]);
 	}
 
 	function formatPayload(payload: PokeApiPayload): Pokemon {
@@ -58,23 +42,25 @@ function SearchField({ addTeamMember }: SearchFieldProps) {
 	}
 
 	useEffect(() => {
-		if (!searchText) return;
+		if (!debouncedSearchTerm) return;
 
-		(async function () {
-			const payload = await fetchSearchResults<PokeApiPayload>(debouncedSearchTerm).catch(
-				(error) => {
-					throw error;
-				}
-			);
-			if (!payload) return;
+		async function fetchSearchResults(searchString: string): Promise<void> {
+			try {
+				const response: HttpResponse<PokeApiPayload> = await fetch(
+					`https://pokeapi.co/api/v2/pokemon/${searchString}`
+				);
 
-			// Sets formatted payload to state
-			const formattedPayload = formatPayload(payload.data as PokeApiPayload);
-			setResults([formattedPayload]);
-		})().catch((error) => {
-			throw error;
-		});
-		// eslint-disable-next-line react-hooks/exhaustive-deps
+				response.data = (await response.json()) as PokeApiPayload;
+				const formattedPayload = formatPayload(response?.data);
+
+				setResults([formattedPayload]);
+			} catch (error) {
+				// TODO: Handle error here
+				console.log('Error on search fetch');
+				// throw error;
+			}
+		}
+		fetchSearchResults(debouncedSearchTerm);
 	}, [debouncedSearchTerm]);
 
 	return (
@@ -89,11 +75,11 @@ function SearchField({ addTeamMember }: SearchFieldProps) {
 					value={searchText}
 					onChange={handleSearchChange}
 				/>
-				<SearchClearBtn type="button" onClick={() => clearSearchField()}>
+				<SearchClearBtn type="button" onClick={clearSearchField}>
 					Clear
 				</SearchClearBtn>
 			</SearchLabel>
-			{debouncedSearchTerm.length > 0 ? (
+			{debouncedSearchTerm && !!results.length ? (
 				<SearchResultContainer>
 					{results.map((result) => (
 						<ResultCard
