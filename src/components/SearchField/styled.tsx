@@ -37,7 +37,7 @@ export const SearchClearBtn = styled.button`
 `;
 
 export const SearchResultContainer = styled.div`
-	width: 300px;
+	width: 100%;
 	position: absolute;
 	left: 0;
 	right: 0;
@@ -45,5 +45,5 @@ export const SearchResultContainer = styled.div`
 	top: 80%;
 
 	display: flex;
-	flex-direction: column;
+	justify-content: center;
 `;
