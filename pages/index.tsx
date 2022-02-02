@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import { Pokemon } from '../src/types';
 import { SearchField } from '../src/components/SearchField';
 import { Roster, RosterSlot } from '../src/components/Roster';
+import { removeDuplicates } from '../src/utils';
 
 function HomePage(): JSX.Element {
 	const [roster, setRoster] = useState<Pokemon[]>([]);
@@ -31,6 +32,33 @@ function HomePage(): JSX.Element {
 		setRoster(updatedRoster);
 	}
 
+	function getTypesCollection(): string[] {
+		const typesCollection: string[] = [];
+
+		if (!roster) return typesCollection;
+
+		// Destructures a pokemon object to add types to typesCollection
+		[...roster].forEach((pokemon) => {
+			const { types } = pokemon;
+			[...types].forEach((type) => {
+				const {
+					type: { name },
+				} = type;
+				typesCollection.push(name);
+			});
+		});
+
+		// Removes duplicates from the typesCollection
+		const cleanTypesCollection = removeDuplicates(typesCollection);
+		return cleanTypesCollection;
+	}
+
+	function getRosterWeaknesses() {
+		const rosterTypes = getTypesCollection();
+
+		console.log({ rosterTypes });
+	}
+
 	return (
 		<main style={{ border: '2px solid blue', height: '100%' }}>
 			<h1>Hello World</h1>
@@ -51,6 +79,11 @@ function HomePage(): JSX.Element {
 					})
 					: null}
 			</Roster>
+			<section style={{ padding: '2rem' }}>
+				<button type="button" onClick={getRosterWeaknesses}>
+					Get Weaknesses
+				</button>
+			</section>
 		</main>
 	);
 }

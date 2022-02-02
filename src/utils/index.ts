@@ -4,3 +4,7 @@ export function capitalizeFirstLetter(value: string[]) {
 		return letter.toUpperCase();
 	});
 }
+
+export function removeDuplicates<T>(collection: T[]) {
+	return [...new Set(collection)];
+}
