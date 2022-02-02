@@ -1,3 +1,7 @@
+import { POKEMON_TYPES, STRENGTH_WEAKNESS_CHART } from './pokemonCharts';
+
+export { POKEMON_TYPES, STRENGTH_WEAKNESS_CHART };
+
 export function capitalizeFirstLetter(value: string[]) {
 	return value.map((letter, index) => {
 		if (index !== 0) return letter;

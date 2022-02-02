@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { Pokemon } from '../src/types';
 import { SearchField } from '../src/components/SearchField';
 import { Roster, RosterSlot } from '../src/components/Roster';
-import { removeDuplicates } from '../src/utils';
+import { removeDuplicates, STRENGTH_WEAKNESS_CHART } from '../src/utils';
 
 function HomePage(): JSX.Element {
 	const [roster, setRoster] = useState<Pokemon[]>([]);
@@ -55,8 +55,13 @@ function HomePage(): JSX.Element {
 
 	function getRosterWeaknesses() {
 		const rosterTypes = getTypesCollection();
+		// TODOS:
+		//	- create an array of weaknesses for each roster type using STRENGTH_WEAKNESS_CHART
+		//  - remove duplicates from this array
+		//  - this is the weakness of the roster
+		// 		- Should this be a percentage & list?
 
-		console.log({ rosterTypes });
+		console.log({ rosterTypes, STRENGTH_WEAKNESS_CHART });
 	}
 
 	return (
