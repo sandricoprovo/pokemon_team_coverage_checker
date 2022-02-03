@@ -16,3 +16,30 @@ export interface Pokemon {
 	types: PokeApiType[];
 	sprite: string;
 }
+
+export interface TypeEffectiveness {
+	strongAgainst: string[];
+	weakAgainst: string[];
+}
+
+export interface TypeChart {
+	[key: string]: TypeEffectiveness;
+	bug: TypeEffectiveness;
+	dark: TypeEffectiveness;
+	dragon: TypeEffectiveness;
+	electric: TypeEffectiveness;
+	fairy: TypeEffectiveness;
+	fighting: TypeEffectiveness;
+	fire: TypeEffectiveness;
+	flying: TypeEffectiveness;
+	ghost: TypeEffectiveness;
+	grass: TypeEffectiveness;
+	ground: TypeEffectiveness;
+	ice: TypeEffectiveness;
+	normal: TypeEffectiveness;
+	poison: TypeEffectiveness;
+	psychic: TypeEffectiveness;
+	rock: TypeEffectiveness;
+	steel: TypeEffectiveness;
+	water: TypeEffectiveness;
+}

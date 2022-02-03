@@ -1,6 +1,4 @@
-import { POKEMON_TYPES, STRENGTH_WEAKNESS_CHART } from './pokemonCharts';
-
-export { POKEMON_TYPES, STRENGTH_WEAKNESS_CHART };
+import { POKEMON_TYPES, STRENGTH_WEAKNESS_DATA } from './pokemonCharts';
 
 export function capitalizeFirstLetter(value: string[]) {
 	return value.map((letter, index) => {
@@ -12,3 +10,5 @@ export function capitalizeFirstLetter(value: string[]) {
 export function removeDuplicates<T>(collection: T[]) {
 	return [...new Set(collection)];
 }
+
+export { POKEMON_TYPES, STRENGTH_WEAKNESS_DATA };

@@ -1,12 +1,24 @@
 import React, { useState } from 'react';
 
 import { Pokemon } from '../src/types';
-import { SearchField } from '../src/components/SearchField';
+import SearchField from '../src/components/SearchField';
 import { Roster, RosterSlot } from '../src/components/Roster';
-import { removeDuplicates, STRENGTH_WEAKNESS_CHART } from '../src/utils';
+import { removeDuplicates, STRENGTH_WEAKNESS_DATA, POKEMON_TYPES } from '../src/utils';
+import TypeCoverage from '../src/components/TypeCoverage';
+
+interface RosterTypeCoverage {
+	covered: string[];
+	notCovered: string[];
+	percentage: number;
+}
 
 function HomePage(): JSX.Element {
 	const [roster, setRoster] = useState<Pokemon[]>([]);
+	const [rosterTypeCoverage, setRosterTypeCoverage] = useState<RosterTypeCoverage>({
+		covered: [],
+		notCovered: [],
+		percentage: 0,
+	});
 
 	function handleRosterAddition(newTeamMember: Pokemon) {
 		const updatedRoster = [...roster];
@@ -32,36 +44,58 @@ function HomePage(): JSX.Element {
 		setRoster(updatedRoster);
 	}
 
-	function getTypesCollection(): string[] {
-		const typesCollection: string[] = [];
+	function getTypesCollection() {
+		const typesCollection: { typesStrongAgainst: string[]; typesWeakAgainst: string[] } = {
+			typesStrongAgainst: [],
+			typesWeakAgainst: [],
+		};
 
 		if (!roster) return typesCollection;
 
-		// Destructures a pokemon object to add types to typesCollection
-		[...roster].forEach((pokemon) => {
-			const { types } = pokemon;
-			[...types].forEach((type) => {
+		// Loops over each pokemon & their types to load the typesCollection object
+		roster.forEach((pokemon) => {
+			pokemon.types.forEach((typeData) => {
 				const {
-					type: { name },
-				} = type;
-				typesCollection.push(name);
+					type: { name: typeName },
+				} = typeData;
+				// Adds the pokemon's types to respective arrays
+				typesCollection.typesStrongAgainst.push(
+					...STRENGTH_WEAKNESS_DATA[typeName].strongAgainst
+				);
+				typesCollection.typesWeakAgainst.push(
+					...STRENGTH_WEAKNESS_DATA[typeName].weakAgainst
+				);
 			});
 		});
 
-		// Removes duplicates from the typesCollection
-		const cleanTypesCollection = removeDuplicates(typesCollection);
-		return cleanTypesCollection;
+		// Removes duplicates from type arrays
+		typesCollection.typesStrongAgainst = removeDuplicates(typesCollection.typesStrongAgainst);
+		typesCollection.typesWeakAgainst = removeDuplicates(typesCollection.typesWeakAgainst);
+
+		return typesCollection;
 	}
 
-	function getRosterWeaknesses() {
-		const rosterTypes = getTypesCollection();
-		// TODOS:
-		//	- create an array of weaknesses for each roster type using STRENGTH_WEAKNESS_CHART
-		//  - remove duplicates from this array
-		//  - this is the weakness of the roster
-		// 		- Should this be a percentage & list?
+	function checkTypeCoverage() {
+		const { typesStrongAgainst, typesWeakAgainst } = getTypesCollection();
+		// Creates arrays containing the covered & not covered types
+		const coveredTypes = [...new Set([...typesStrongAgainst])];
+		const notCoveredTypes = removeDuplicates(
+			[...[...new Set([...typesWeakAgainst])], ...POKEMON_TYPES].filter((type) => {
+				// Non included types aren't covered
+				if (!coveredTypes.includes(type)) return type;
+				return null;
+			})
+		);
 
-		console.log({ rosterTypes, STRENGTH_WEAKNESS_CHART });
+		// Calculates the % of types where at least one roster member is super effective against.
+		const coveragePercentage =
+			parseFloat((coveredTypes.length / POKEMON_TYPES.length).toFixed(4)) * 100;
+
+		setRosterTypeCoverage({
+			covered: coveredTypes,
+			notCovered: notCoveredTypes,
+			percentage: coveragePercentage,
+		});
 	}
 
 	return (
@@ -84,11 +118,7 @@ function HomePage(): JSX.Element {
 					})
 					: null}
 			</Roster>
-			<section style={{ padding: '2rem' }}>
-				<button type="button" onClick={getRosterWeaknesses}>
-					Get Weaknesses
-				</button>
-			</section>
+			<TypeCoverage checkMethod={checkTypeCoverage} />
 		</main>
 	);
 }

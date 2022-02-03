@@ -1,3 +1,5 @@
+import { TypeChart } from '../types';
+
 // TODO: Maybe refactor to type colors
 export const POKEMON_TYPES = [
 	'normal',
@@ -20,7 +22,7 @@ export const POKEMON_TYPES = [
 	'fairy',
 ];
 
-export const STRENGTH_WEAKNESS_CHART = {
+export const STRENGTH_WEAKNESS_DATA: TypeChart = {
 	bug: {
 		strongAgainst: ['grass', 'dark', 'psychic'],
 		weakAgainst: ['fire', 'flying', 'rock'],
