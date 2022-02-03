@@ -1,6 +1,6 @@
 export interface PokeApiType {
-	slot: number;
-	type: { name: string; url: string };
+	type: { name: string; url?: string };
+	slot?: number;
 }
 
 export interface PokeApiPayload {

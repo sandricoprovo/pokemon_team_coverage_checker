@@ -1,16 +1,10 @@
 import React, { useState } from 'react';
 
-import { Pokemon } from '../src/types';
+import { Pokemon, RosterTypeCoverage } from '../src/types';
 import SearchField from '../src/components/SearchField';
 import { Roster, RosterSlot } from '../src/components/Roster';
 import { removeDuplicates, STRENGTH_WEAKNESS_DATA, POKEMON_TYPES } from '../src/utils';
 import TypeCoverage from '../src/components/TypeCoverage';
-
-interface RosterTypeCoverage {
-	covered: string[];
-	notCovered: string[];
-	percentage: number;
-}
 
 function HomePage(): JSX.Element {
 	const [roster, setRoster] = useState<Pokemon[]>([]);
@@ -88,8 +82,11 @@ function HomePage(): JSX.Element {
 		);
 
 		// Calculates the % of types where at least one roster member is super effective against.
-		const coveragePercentage =
-			parseFloat((coveredTypes.length / POKEMON_TYPES.length).toFixed(4)) * 100;
+		const coveragePercentage = parseFloat(
+			((coveredTypes.length / POKEMON_TYPES.length) * 100).toFixed(2)
+		);
+
+		console.log(coveragePercentage);
 
 		setRosterTypeCoverage({
 			covered: coveredTypes,
@@ -118,7 +115,7 @@ function HomePage(): JSX.Element {
 					})
 					: null}
 			</Roster>
-			<TypeCoverage checkMethod={checkTypeCoverage} />
+			<TypeCoverage coverageData={rosterTypeCoverage} checkMethod={checkTypeCoverage} />
 		</main>
 	);
 }
