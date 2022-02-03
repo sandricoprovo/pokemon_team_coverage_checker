@@ -15,6 +15,7 @@ export const CheckCoverageBtn = styled.button``;
 
 export const CoverageStats = styled.div`
 	border: 2px solid gold;
+	width: 100%;
 
 	display: flex;
 	justify-content: space-evenly;
