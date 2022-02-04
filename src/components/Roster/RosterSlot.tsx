@@ -37,9 +37,9 @@ function RosterSlot({ pokemon, removeFromRoster }: RosterSlotProps) {
 					<Header>{capitalizeFirstLetter([...name])}</Header>
 				</SpriteContainer>
 				<TypesContainer>
-					{types.map((typeData) => (
+					{types.map((typeData, index) => (
 						<TypePill
-							key={`${typeData.slot}_${typeData.type.name}`}
+							key={`${typeData.slot ?? index}_${typeData.type.name}`}
 							typeData={typeData}
 						/>
 					))}

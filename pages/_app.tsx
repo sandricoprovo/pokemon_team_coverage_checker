@@ -6,14 +6,14 @@ import GlobalStyles from '../src/components/GlobalStyles';
 import Layout from '../src/components/Layout';
 
 function App({ Component, pageProps }: AppProps) {
-	return (
-		<>
-			<GlobalStyles />
-			<Layout>
-				<Component {...pageProps} />
-			</Layout>
-		</>
-	);
+    return (
+        <>
+            <GlobalStyles />
+            <Layout>
+                <Component {...pageProps} />
+            </Layout>
+        </>
+    );
 }
 
 export default App;
