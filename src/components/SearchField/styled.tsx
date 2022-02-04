@@ -12,38 +12,38 @@ export const SearchContainer = styled.div`
 `;
 
 export const SearchLabel = styled.label`
-	position: relative;
-	border: 2px solid magenta;
-	min-width: 300px;
-	width: 80%;
-	padding: 1rem;
+    position: relative;
+    border: 2px solid magenta;
+    min-width: 300px;
+    width: 80%;
+    padding: 1rem;
 
-	display: flex;
-	flex-wrap: wrap;
-	justify-content: space-around;
-	align-items: center;
-	gap: 1rem;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    align-items: center;
+    gap: 1rem;
 `;
 
 export const SearchInputField = styled.input`
-	flex: 1 2 150px;
-	max-width: 500px;
-	padding: 0.5rem 0.25rem;
+    flex: 1 2 150px;
+    max-width: 500px;
+    padding: 0.5rem 0.25rem;
 `;
 export const SearchClearBtn = styled.button`
-	padding: 0.5rem 3rem;
-	border: none;
-	cursor: pointer;
+    padding: 0.5rem 3rem;
+    border: none;
+    cursor: pointer;
 `;
 
 export const SearchResultContainer = styled.div`
-	width: 100%;
-	position: absolute;
-	left: 0;
-	right: 0;
-	margin: auto;
-	top: 80%;
+    width: 100%;
+    position: absolute;
+    left: 0;
+    right: 0;
+    margin: auto;
+    top: 80%;
 
-	display: flex;
-	justify-content: center;
+    display: flex;
+    justify-content: center;
 `;
