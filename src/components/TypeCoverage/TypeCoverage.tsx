@@ -3,7 +3,13 @@ import React, { useEffect, useState } from 'react';
 import { RosterTypeCoverage } from '../../types';
 import TypePill from '../TypePill';
 
-import { CheckCoverageBtn, Container, CoverageStats } from './styled';
+import {
+    CheckCoverageBtn,
+    Container,
+    CoverageStats,
+    CoverageList,
+    CoverageListHeader,
+} from './styled';
 
 interface TypeCoverageProps {
     coverageData: RosterTypeCoverage;
@@ -30,30 +36,39 @@ function TypeCoverage({ coverageData, checkMethod }: TypeCoverageProps) {
                 Check Type Coverage
             </CheckCoverageBtn>
             <CoverageStats>
-                <div>
-                    <h3>Covered Types</h3>
-                    <p>Description...</p>
+                <CoverageList>
+                    <CoverageListHeader>
+                        <h3>Covered Types</h3>
+                        <p>Description...</p>
+                    </CoverageListHeader>
                     {coveredTypes.length
                         ? coveredTypes.map((type) => {
                               const formattedType = { type: { name: type } };
                               return <TypePill typeData={formattedType} />;
                           })
                         : 'N/A'}
-                </div>
-                <div>
-                    <h3>Not Covered Types</h3>
-                    <p>Description...</p>
+                </CoverageList>
+                <CoverageList>
+                    <CoverageListHeader>
+                        <h3>Not Covered Types</h3>
+                        <p>Description...</p>
+                    </CoverageListHeader>
                     {notCoveredTypes.length
-                        ? notCoveredTypes.map((type) => {
+                        ? notCoveredTypes.map((type, index) => {
                               const formattedType = { type: { name: type } };
-                              return <TypePill typeData={formattedType} />;
+                              return (
+                                  <TypePill
+                                      key={`${type}_${index}`}
+                                      typeData={formattedType}
+                                  />
+                              );
                           })
                         : 'N/A'}
-                </div>
-                <div>
+                </CoverageList>
+                <CoverageList>
                     <h3>Percent Covered</h3>
                     <p>{`${coveragePercent}%`}</p>
-                </div>
+                </CoverageList>
             </CoverageStats>
         </Container>
     );
