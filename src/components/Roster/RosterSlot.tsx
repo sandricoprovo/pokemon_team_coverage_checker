@@ -4,12 +4,12 @@ import Image from 'next/image';
 import TypePill from '../TypePill';
 import { Pokemon } from '../../types';
 import { capitalizeFirstLetter } from '../../utils';
+import { SecondaryButton } from '../Buttons';
 
 import {
     RosterSlotContainer,
     TypesContainer,
     Header,
-    RemoveSlotBtn,
     ContentContainer,
     SpriteContainer,
 } from './styled';
@@ -25,9 +25,10 @@ function RosterSlot({ pokemon, removeFromRoster }: RosterSlotProps) {
 
     return (
         <RosterSlotContainer>
-            <RemoveSlotBtn onClick={() => removeFromRoster(pokemon)}>
-                X
-            </RemoveSlotBtn>
+            <SecondaryButton
+                text="X"
+                clickHandler={() => removeFromRoster(pokemon)}
+            />
             <ContentContainer>
                 <SpriteContainer>
                     <Image

@@ -2,12 +2,13 @@ import styled from 'styled-components';
 
 export const RosterContainer = styled.section`
     border: 2px solid pink;
+    padding: 2rem 0;
 
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
     align-items: center;
-    gap: 3rem;
+    gap: 4rem;
 `;
 
 export const RosterSlotContainer = styled.div`
@@ -22,11 +23,10 @@ export const RosterSlotContainer = styled.div`
     flex-direction: column;
     justify-content: space-around;
     align-items: center;
-`;
 
-export const RemoveSlotBtn = styled.button`
-    cursor: pointer;
-    margin-left: auto;
+    & > button {
+        margin-left: auto;
+    }
 `;
 
 export const ContentContainer = styled.div`

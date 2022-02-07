@@ -1,14 +1,9 @@
 import React from 'react';
 
 import { PrimaryBtn } from './styled';
+import ButtonProps from './buttonProps';
 
-interface PrimaryBtnProps {
-    text: string;
-    type?: 'button' | 'submit' | 'reset' | undefined;
-    clickHandler?: () => void;
-}
-
-function PrimaryButton({ text, type, clickHandler }: PrimaryBtnProps) {
+function PrimaryButton({ text, type, clickHandler }: ButtonProps) {
     return (
         <PrimaryBtn type={type ?? 'button'} onClick={clickHandler}>
             {text}
