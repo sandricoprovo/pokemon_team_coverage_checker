@@ -2,9 +2,9 @@ import React, { useEffect, useState } from 'react';
 
 import { RosterTypeCoverage } from '../../types';
 import TypePill from '../TypePill';
+import { PrimaryButton } from '../Buttons';
 
 import {
-    CheckCoverageBtn,
     Container,
     CoverageStats,
     CoverageList,
@@ -32,9 +32,10 @@ function TypeCoverage({ coverageData, checkMethod }: TypeCoverageProps) {
 
     return (
         <Container>
-            <CheckCoverageBtn type="button" onClick={checkMethod}>
-                Check Type Coverage
-            </CheckCoverageBtn>
+            <PrimaryButton
+                text="Check Type Coverage"
+                clickHandler={checkMethod}
+            />
             <CoverageStats>
                 <CoverageList>
                     <CoverageListHeader>

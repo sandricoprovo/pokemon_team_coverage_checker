@@ -30,11 +30,6 @@ export const SearchInputField = styled.input`
     max-width: 500px;
     padding: 0.5rem 0.25rem;
 `;
-export const SearchClearBtn = styled.button`
-    padding: 0.5rem 3rem;
-    border: none;
-    cursor: pointer;
-`;
 
 export const SearchResultContainer = styled.div`
     width: 100%;

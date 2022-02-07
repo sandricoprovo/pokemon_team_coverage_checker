@@ -3,12 +3,12 @@ import React, { useState, useEffect, ChangeEvent } from 'react';
 import { Pokemon, PokeApiPayload, HttpResponse } from '../../types';
 import { useDebounce } from '../../hooks';
 import { ResultCard } from '../ResultCard';
+import { PrimaryButton } from '../Buttons';
 
 import {
     SearchContainer,
     SearchLabel,
     SearchInputField,
-    SearchClearBtn,
     SearchResultContainer,
 } from './styled';
 
@@ -75,9 +75,7 @@ function SearchField({ addTeamMember }: SearchFieldProps) {
                     value={searchText}
                     onChange={handleSearchChange}
                 />
-                <SearchClearBtn type="button" onClick={clearSearchField}>
-                    Clear
-                </SearchClearBtn>
+                <PrimaryButton text="Clear" clickHandler={clearSearchField} />
             </SearchLabel>
             {debouncedSearchTerm && !!results.length ? (
                 <SearchResultContainer>

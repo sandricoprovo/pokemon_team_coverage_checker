@@ -11,8 +11,6 @@ export const Container = styled.section`
     gap: 2rem;
 `;
 
-export const CheckCoverageBtn = styled.button``;
-
 export const CoverageStats = styled.div`
     border: 2px solid gold;
     width: 100%;
