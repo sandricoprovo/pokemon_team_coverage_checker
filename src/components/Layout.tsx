@@ -3,6 +3,7 @@ import styled from 'styled-components';
 
 const AppContainer = styled.div`
     border: 4px solid red;
+    background-color: hsl(var(--emerald));
 `;
 
 interface LayoutProps {
